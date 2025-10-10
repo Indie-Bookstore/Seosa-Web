@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-sans-kr), Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+
+  button {
+    cursor: pointer;
+  }
+
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  input {
+    outline: none;
+    background: transparent;
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@theme {
+  --color-primary: #487153;
+  --color-secondary: #fffbea;
+  --color-interacton-red: #f04438;
+  --color-text-primary: #111111;
+
+  --font-sans: var(--font-noto-sans-kr);
+  --font-unbatang: var(--font-unbatang);
+  --font-apple: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+@keyframes bg-to-secondary {
+  0% {
+    background-color: var(--color-primary);
+  }
+  40% {
+    background-color: var(--color-primary);
+  }
+  100% {
+    background-color: var(--color-secondary);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@utility font-unbatang {
+  font-family: var(--font-unbatang), serif;
+}
+
+@utility font-apple {
+  font-family: var(--font-apple);
+}
+
+.animate-bg-to-secondary {
+  animation: bg-to-secondary 2s ease-in-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 2s ease-in-out forwards;
 }

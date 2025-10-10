@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { NotoSansKR, Unbatang } from "@/common";
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Image from "next/image";
+import { ReactQueryClientProvider } from "@/common/services";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +17,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="ko" className={`${NotoSansKR.variable} ${Unbatang.variable}`}>
+      <body>
+        <ReactQueryClientProvider>
+          <div className="h-screen w-screen bg-primary transition-colors ease-in-out animate-bg-to-secondary">
+            <div className="grid grid-cols-[3fr_360px_1fr] h-full">
+              <div className="size-full flex justify-center items-center">
+                <div className="flex flex-col justify-center items-center gap-[18px]">
+                  <Image
+                    src="/icon/logo.svg"
+                    alt="logo"
+                    width={48}
+                    height={48}
+                    className="animate-fade-in"
+                  />
+                  <div className="text-primary text-sm font-unbatang">
+                    책과 공간 , 인연의 서사
+                  </div>
+                </div>
+              </div>
+              <div className="h-full bg-white relative overflow-hidden">
+                {children}
+              </div>
+              <div />
+            </div>
+          </div>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
