@@ -28,7 +28,7 @@ const Button = ({
         rest.disabled &&
           "bg-[#E1E1E1] text-[#888888] !cursor-not-allowed border-none",
         "flex justify-center items-center",
-        "aria-pressed:cursor-default aria-pressed:bg-primary/70",
+        "aria-pressed:!cursor-default aria-pressed:!bg-primary/70",
         className
       )}
       type={type}

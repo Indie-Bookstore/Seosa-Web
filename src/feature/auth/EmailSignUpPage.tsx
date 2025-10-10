@@ -1,14 +1,20 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import ArrowBack from "../../../public/icon/arrow-back.svg";
 import { EmailSignUpForm } from "./components";
 
 export default function EmailSignUpPage() {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col gap-4 h-full pb-[36px]">
+    <div className="flex flex-col gap-4 pb-[36px] min-h-full">
       <div className="flex h-14 w-full items-center">
         <ArrowBack
           alt="go back"
           role="button"
           className="cursor-pointer size-6"
+          onClick={() => router.push("/login")}
         />
       </div>
 

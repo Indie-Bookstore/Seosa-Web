@@ -1,12 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import ArrowBack from "../../../public/icon/arrow-back.svg";
 import Kakao from "../../../public/icon/kakao.svg";
 import { Button, Input } from "@/common";
 import { EmailSignUpRoute } from "./route";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col h-full gap-4">
+    <div className="flex flex-col min-h-full gap-4">
       <div className="flex h-14 w-full items-center">
         <ArrowBack
           alt="go back"

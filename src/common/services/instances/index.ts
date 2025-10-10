@@ -1,11 +1,11 @@
-import { AxiosInstance } from 'axios'
-import clientInstance from './ClientInstance'
-import edgeInstance from './EdgeInstance'
-import nodeJSInstance from './NodeJSInstance'
+import { AxiosInstance } from "axios";
+import clientInstance from "./ClientInstance";
+import edgeInstance from "./EdgeInstance";
+import nodeJSInstance from "./NodeJSInstance";
 
 type UtilAxiosInstance = AxiosInstance & {
-  mock: (url: string, dataMock: any) => Promise<any>
-}
+  mock: (url: string, dataMock: any) => Promise<any>;
+};
 
 /**
  * @description
@@ -16,13 +16,13 @@ const extendAxios = (instance: AxiosInstance): UtilAxiosInstance => {
     mock: (url: string, dataMock?: any) => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(dataMock)
-        }, 500)
-      })
+          resolve(dataMock);
+        }, 500);
+      });
     },
-  })
-  return newInstance
-}
+  });
+  return newInstance;
+};
 
 /**
  * @description
@@ -37,19 +37,19 @@ const extendAxios = (instance: AxiosInstance): UtilAxiosInstance => {
  * 클라이언트 환경에서는 ClientInstance를 사용합니다.
  */
 const setInstance = (): UtilAxiosInstance | never => {
-  if (typeof window !== 'undefined')
-    return extendAxios(clientInstance) /* guard for client side */
+  if (typeof window !== "undefined")
+    return extendAxios(clientInstance); /* guard for client side */
 
   switch (process.env.NEXT_RUNTIME) {
-    case 'edge':
-      return extendAxios(edgeInstance)
-    case 'nodejs':
-      return extendAxios(nodeJSInstance)
+    case "edge":
+      return extendAxios(edgeInstance);
+    case "nodejs":
+      return extendAxios(nodeJSInstance);
     default:
       throw new Error(
-        `unknown NEXT_RUNTIME detected: ${process.env.NEXT_RUNTIME}`,
-      )
+        `unknown NEXT_RUNTIME detected: ${process.env.NEXT_RUNTIME}`
+      );
   }
-}
+};
 
-export const instance = setInstance()
+export const instance = setInstance();

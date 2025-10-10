@@ -9,7 +9,8 @@ interface InputProps extends ComponentProps<"input"> {
   label?: string;
   inputClassName?: string;
   inputWrapperClassName?: string;
-  errorMessage?: string | (() => ReactNode);
+  message?: string | (() => ReactNode);
+  messageClassName?: string;
 }
 
 const Input = ({
@@ -17,7 +18,8 @@ const Input = ({
   inputClassName,
   inputWrapperClassName,
   type,
-  errorMessage,
+  message,
+  messageClassName,
   ...rest
 }: InputProps) => {
   const htmlFor = useId();
@@ -29,7 +31,7 @@ const Input = ({
   };
 
   return (
-    <div className={cn("flex flex-col gap-1 w-full", inputWrapperClassName)}>
+    <div className={cn("flex flex-col gap-1", inputWrapperClassName)}>
       {label && (
         <label
           htmlFor={htmlFor}
@@ -58,11 +60,15 @@ const Input = ({
         )}
       </div>
 
-      {errorMessage &&
-        (typeof errorMessage === "function" ? (
-          errorMessage()
+      {message &&
+        (typeof message === "function" ? (
+          message()
         ) : (
-          <div className="text-interacton-red text-[10px]">{errorMessage}</div>
+          <div
+            className={cn("text-interacton-red text-[10px]", messageClassName)}
+          >
+            {message}
+          </div>
         ))}
     </div>
   );
