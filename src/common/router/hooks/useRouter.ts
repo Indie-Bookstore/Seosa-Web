@@ -1,6 +1,6 @@
-'use client'
-import { useRouter as useNextRouter } from 'next/navigation'
-import { Route } from '../Route'
+"use client";
+import { useRouter as useNextRouter } from "next/navigation";
+import { Route } from "../Route";
 
 /**
  * @description 추후 type 오버라이딩이 있을 경우가 있기 떄문에, 재선언 해줌
@@ -16,6 +16,6 @@ import { Route } from '../Route'
  */
 // eslint-disable-next-line
 export const useRouter = <TypeRoute extends Route<any, any>>() => {
-  const router = useNextRouter()
-  return router
-}
+  const router = useNextRouter();
+  return router;
+};
