@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/common";
 import ArrowBack from "../../../public/icon/arrow-back.svg";
 import { EmailSignUpForm } from "./components";
 
@@ -14,7 +14,7 @@ export default function EmailSignUpPage() {
           alt="go back"
           role="button"
           className="cursor-pointer size-6"
-          onClick={() => router.push("/login")}
+          onClick={() => router.back()}
         />
       </div>
 

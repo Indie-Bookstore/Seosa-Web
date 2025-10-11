@@ -12,7 +12,7 @@ import { EmailSignUpProvider, useEmailSignUp } from "../provider";
 import { useEffect, useState } from "react";
 import Checked from "../../../../public/icon/checked.svg";
 import Prohibition from "../../../../public/icon/prohibition.svg";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/common";
 
 const EmailSignUpForm = () => {
   const methods = useForm<EmailSignUpFormType>({
