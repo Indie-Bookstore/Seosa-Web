@@ -36,7 +36,7 @@ export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useLogin = () => {
   const context = useContext(LoginContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useLogin must be used within a LoginProvider");
   }
   return context;

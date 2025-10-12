@@ -94,3 +94,55 @@ export const useEmailSignInMuation = () => {
     mutationFn: signIn,
   });
 };
+
+export const sendVerificationCode = async (email: string): Promise<void> => {
+  const response = await instance.get(`/user/sendVerificationCode`, {
+    params: { email },
+  });
+  return response.data;
+};
+
+export const useSendVerificationCodeMuation = () => {
+  return useMutation({
+    mutationFn: sendVerificationCode,
+  });
+};
+
+export const checkVerificationCode = async ({
+  email,
+  verificationCode,
+}: {
+  email: string;
+  verificationCode: string;
+}): Promise<void> => {
+  const response = await instance.get(`/user/checkVerificationCode`, {
+    params: { email, verificationCode },
+  });
+  return response.data;
+};
+
+export const useCheckVerificationCodeMuation = () => {
+  return useMutation({
+    mutationFn: checkVerificationCode,
+  });
+};
+
+export const resetPassword = async ({
+  email,
+  newPassword,
+}: {
+  email: string;
+  newPassword: string;
+}): Promise<void> => {
+  const response = await instance.patch(`/user/password?email=${email}`, {
+    newPassword1: newPassword,
+    newPassword2: newPassword,
+  });
+  return response.data;
+};
+
+export const useResetPasswordMuation = () => {
+  return useMutation({
+    mutationFn: resetPassword,
+  });
+};

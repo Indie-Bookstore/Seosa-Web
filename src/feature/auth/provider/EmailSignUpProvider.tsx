@@ -41,5 +41,10 @@ export const EmailSignUpProvider = ({
 };
 
 export const useEmailSignUp = () => {
-  return useContext(EmailSignUpContext);
+  const context = useContext(EmailSignUpContext);
+  if (!context) {
+    throw new Error("useEmailSignUp must be used within a EmailSignUpProvider");
+  }
+
+  return context;
 };

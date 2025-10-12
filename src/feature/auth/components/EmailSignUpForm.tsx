@@ -10,9 +10,11 @@ import {
 } from "@/common";
 import { EmailSignUpProvider, useEmailSignUp } from "../provider";
 import { useEffect, useState } from "react";
-import Checked from "../../../../public/icon/checked.svg";
-import Prohibition from "../../../../public/icon/prohibition.svg";
+
 import { useRouter } from "@/common";
+import { LoginRoute } from "../route";
+import { passwordValidator } from "../util";
+import PasswordValidationMessage from "./PasswordValidationMessage";
 
 const EmailSignUpForm = () => {
   const methods = useForm<EmailSignUpFormType>({
@@ -220,57 +222,21 @@ const EmailInput = () => {
 const PasswordInput = () => {
   const { register, watch } = useFormContext<EmailSignUpFormType>();
   const password = watch("password");
-  const validationRules = {
-    minLength: (password: string) => password.length >= 8,
-    hasLetter: (password: string) => /[a-zA-Z]/.test(password),
-    hasNumber: (password: string) => /[0-9]/.test(password),
-  };
-
-  const PasswordValidationMessage = () => {
-    const minLengthCondition = validationRules.minLength(password);
-    const hasLetterCondition = validationRules.hasLetter(password);
-    const hasNumberCondition = validationRules.hasNumber(password);
-
-    const conditions = [
-      {
-        condition: minLengthCondition,
-        message: "최소 8자 이상",
-      },
-      {
-        condition: hasLetterCondition,
-        message: "최소 1개 이상의 영문자 포함",
-      },
-      {
-        condition: hasNumberCondition,
-        message: "최소 1개 이상의 숫자 포함",
-      },
-    ];
-
-    return (
-      <div className="flex flex-col px-[15px] py-[18px] gap-2 bg-sub border border-[#E1E1E1] rounded-[11px] mt-1">
-        {conditions.map((condition) => (
-          <div key={condition.message} className="flex items-center gap-1.5">
-            {condition.condition ? <Checked /> : <Prohibition />}
-            <span className="text-[11px]">{condition.message}</span>
-          </div>
-        ))}
-      </div>
-    );
-  };
 
   return (
     <Input
       label="비밀번호"
       type="password"
       required
-      message={password && (() => <PasswordValidationMessage />)}
-      messageClassName="text-interacton-red"
+      message={
+        password && (() => <PasswordValidationMessage password={password} />)
+      }
       {...register("password", {
         required: "비밀번호를 입력해주세요.",
         validate: {
-          minLength: validationRules.minLength,
-          hasLetter: validationRules.hasLetter,
-          hasNumber: validationRules.hasNumber,
+          minLength: passwordValidator.minLength,
+          hasLetter: passwordValidator.hasLetter,
+          hasNumber: passwordValidator.hasNumber,
         },
       })}
     />
@@ -331,7 +297,7 @@ const SubmitButton = () => {
       },
       {
         onSuccess: () => {
-          router.push("/login");
+          router.push(LoginRoute.toString());
         },
       }
     );

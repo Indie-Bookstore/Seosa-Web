@@ -7,7 +7,7 @@ import { LoginProvider, useLogin } from "../provider";
 import { useRouter } from "@/common";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { EmailSignUpRoute } from "../route";
+import { EmailSignUpRoute, ResetPasswordRoute } from "../route";
 import SDialog from "@/common/ui/SDialog";
 
 const LoginForm = () => {
@@ -39,7 +39,9 @@ const LoginForm = () => {
                 className="flex justify-center pt-5 text-[10px] text-[#666666]"
                 role="button"
               >
-                계정 찾기 / 비밀번호 재설정
+                <Link href={ResetPasswordRoute.toString()}>
+                  계정 찾기 / 비밀번호 재설정
+                </Link>
               </div>
             </div>
 
@@ -120,6 +122,7 @@ const SubmitButton = () => {
         console.log("result", result);
         setIsErrorDialogOpen(true);
       } else {
+        // TODO: 홈 페이지 경로 변경 필요
         router.push("/");
       }
     } catch {
