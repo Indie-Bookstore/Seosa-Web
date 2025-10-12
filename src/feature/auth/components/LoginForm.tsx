@@ -119,7 +119,6 @@ const SubmitButton = () => {
       });
 
       if (result?.error) {
-        console.log("result", result);
         setIsErrorDialogOpen(true);
       } else {
         // TODO: 홈 페이지 경로 변경 필요

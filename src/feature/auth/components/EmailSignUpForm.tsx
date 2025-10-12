@@ -15,6 +15,8 @@ import { useRouter } from "@/common";
 import { LoginRoute } from "../route";
 import { passwordValidator } from "../util";
 import PasswordValidationMessage from "./PasswordValidationMessage";
+import { Popover, PopoverContent, PopoverTrigger } from "@/common/ui/Popover";
+import Help from "../../../../public/icon/help.svg";
 
 const EmailSignUpForm = () => {
   const methods = useForm<EmailSignUpFormType>({
@@ -46,7 +48,7 @@ const EmailSignUpForm = () => {
             </div>
 
             <div className="pt-[40px]">
-              <Input label="인증번호 (선택)" type="password" />
+              <CertificationCodeInput />
             </div>
           </div>
 
@@ -227,6 +229,7 @@ const PasswordInput = () => {
     <Input
       label="비밀번호"
       type="password"
+      placeholder="8자 이상의 비밀번호"
       required
       message={
         password && (() => <PasswordValidationMessage password={password} />)
@@ -263,6 +266,7 @@ const PasswordConfirmInput = () => {
     <Input
       label="비밀번호 확인"
       type="password"
+      placeholder="비밀번호 확인"
       required
       message={errors.passwordConfirm?.message}
       messageClassName="text-interacton-red"
@@ -278,9 +282,53 @@ const PasswordConfirmInput = () => {
   );
 };
 
+const CertificationCodeInput = () => {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<EmailSignUpFormType>();
+
+  return (
+    <Input
+      label={() => (
+        <div className="flex items-end">
+          <span>인증번호(선택)</span>
+          <Popover open={tooltipOpen} onOpenChange={setTooltipOpen}>
+            <PopoverTrigger
+              onMouseEnter={() => setTooltipOpen(true)}
+              onMouseLeave={() => setTooltipOpen(false)}
+              onClick={(e) => e.preventDefault()}
+            >
+              <Help />
+            </PopoverTrigger>
+            <PopoverContent
+              className="w-[220px] px-2 py-[6px] rounded-[16px] bg-[#FFFBEA] border border-[#CCCCCC]"
+              side="top"
+              align="start"
+              onMouseEnter={() => setTooltipOpen(true)}
+              onMouseLeave={() => setTooltipOpen(false)}
+            >
+              <div className="text-[9px] text-[#666666]">
+                인증코드는 에디터와 책방지기분들에 한해 발급됩니다. 발급을
+                원하시는 에디터/책방지기 분들은 카카오톡 채널(@ 채널이름)으로
+                연락주시길 바랍니다.
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      )}
+      placeholder="인증번호를 받으신 분들만 입력해주세요."
+      message={errors.certificationCode?.message}
+      {...register("certificationCode")}
+    />
+  );
+};
+
 const SubmitButton = () => {
   const router = useRouter();
-  const { handleSubmit, formState } = useFormContext<EmailSignUpFormType>();
+  const { handleSubmit, formState, setError } =
+    useFormContext<EmailSignUpFormType>();
   const { isNicknameChecked, isEmailChecked } = useEmailSignUp();
   const { mutate: signUp } = useSignUpMuation();
   const isValid = formState.isValid && isNicknameChecked && isEmailChecked;
@@ -293,11 +341,16 @@ const SubmitButton = () => {
         nickname: data.nickname,
         password: data.password,
         profileImage: "",
-        userRoleCode: "",
+        userRoleCode: data.certificationCode,
       },
       {
         onSuccess: () => {
           router.push(LoginRoute.toString());
+        },
+        onError: () => {
+          setError("certificationCode", {
+            message: "인증번호가 일치하지 않습니다. 다시 입력해주세요.",
+          });
         },
       }
     );

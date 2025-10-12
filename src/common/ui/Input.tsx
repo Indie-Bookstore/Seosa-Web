@@ -6,7 +6,7 @@ import ClosedEye from "../../../public/icon/closed-eye.svg";
 import OpenedEye from "../../../public/icon/opened-eye.svg";
 
 interface InputProps extends ComponentProps<"input"> {
-  label?: string;
+  label?: string | (() => ReactNode);
   inputClassName?: string;
   inputWrapperClassName?: string;
   message?: string | (() => ReactNode);
@@ -37,7 +37,7 @@ const Input = ({
           htmlFor={htmlFor}
           className="font-medium text-xs leading-[18px] text-[#666666]"
         >
-          {label}
+          {typeof label === "function" ? label() : label}
           {rest.required && <span className="text-interacton-red">*</span>}
         </label>
       )}

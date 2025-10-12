@@ -22,10 +22,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
 
           if (result.accessToken) {
+            const payload = JSON.parse(atob(result.accessToken.split(".")[1]));
+
             return {
               email: credentials.email as string,
               accessToken: result.accessToken,
               refreshToken: result.refreshToken,
+              userRole: payload.userRole,
+              userId: payload.userId,
             };
           }
           return null;
@@ -40,13 +44,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.accessToken = (user as any).accessToken;
         token.refreshToken = (user as any).refreshToken;
+        token.userRole = (user as any).userRole;
+        token.userId = (user as any).userId;
       }
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string;
-      session.refreshToken = token.refreshToken as string;
-      return session;
+      const extendedSession = session as any;
+      extendedSession.accessToken = token.accessToken as string;
+      extendedSession.refreshToken = token.refreshToken as string;
+      extendedSession.userRole = token.userRole as string;
+      extendedSession.userId = token.userId as number;
+      return extendedSession;
     },
   },
   pages: {
