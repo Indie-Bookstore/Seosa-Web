@@ -1,8 +1,8 @@
-import type { Post } from "@/common/services/post";
+import type { PostListItem as PostListItem } from "@/common/services/post";
 import dayjs from "dayjs";
 import React from "react";
 
-const Post = ({ post }: { post: Post }) => {
+const PostListItem = ({ post }: { post: PostListItem }) => {
   return (
     <div
       className="size-[324px] rounded-[10px] flex flex-col justify-end px-4 py-[25px]"
@@ -24,4 +24,4 @@ const Post = ({ post }: { post: Post }) => {
   );
 };
 
-export default Post;
+export default PostListItem;

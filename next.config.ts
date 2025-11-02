@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
             options: {
               typescript: true,
               ext: "tsx",
+              icon: true,
+              svgo: true,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }, { removeDimensions: true }],
+              },
             },
           },
         ],

@@ -1,11 +1,11 @@
 import PostListPageHeader from "./components/PostListPageHeader";
-import MainPostListServerContainer from "./container/server/MainPostListServerContainer";
+import PostListServerContainer from "./container/server/PostListServerContainer";
 
 const PostListPage = () => {
   return (
-    <div className="size-full flex flex-col gap-[30px] overflow-y-auto">
+    <div className="size-full flex flex-col gap-[30px]">
       <PostListPageHeader />
-      <MainPostListServerContainer />
+      <PostListServerContainer />
     </div>
   );
 };

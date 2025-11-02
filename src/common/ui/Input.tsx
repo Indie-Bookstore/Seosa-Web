@@ -11,6 +11,7 @@ interface InputProps extends ComponentProps<"input"> {
   inputWrapperClassName?: string;
   message?: string | (() => ReactNode);
   messageClassName?: string;
+  fluid?: boolean;
 }
 
 const Input = ({
