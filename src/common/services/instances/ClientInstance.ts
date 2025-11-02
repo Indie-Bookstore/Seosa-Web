@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 /**
  * @description
@@ -9,6 +10,23 @@ class ClientInstance {
     baseURL: "/api/proxy/seo-sa",
     adapter: "fetch",
   });
+
+  constructor() {
+    this.instance.interceptors.request.use(async (config) => {
+      try {
+        // 클라이언트 사이드에서 세션에서 토큰 가져오기
+        const session = await getSession();
+
+        if (session?.accessToken) {
+          config.headers.Authorization = `Bearer ${session.accessToken}`;
+        }
+      } catch {
+        // 토큰이 없을 수 있으므로 에러는 무시
+      }
+
+      return config;
+    });
+  }
 
   getInstance() {
     return this.instance;
