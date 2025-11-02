@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
     },
   },
 
+  images: {
+    // TODO: 한번 정리 필요
+    domains: ["imagedelivery.net", "fastly.picsum.photos", "cdn.pixabay.com"],
+  },
+
   async rewrites() {
     return [
       {
