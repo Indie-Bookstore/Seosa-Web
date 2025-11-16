@@ -17,7 +17,7 @@ const PostListPageHeader = () => {
         <div className="flex items-center pr-[18px] gap-[15px]">
           <div className="h-[1.5px] flex-1 bg-primary" />
           <h1 className="text-xs font-unbatang text-primary">
-            독립 출만풂을 사랑하는 사람들의 이야기
+            독립 출판물을 사랑하는 사람들의 이야기
           </h1>
         </div>
       </div>
