@@ -78,6 +78,131 @@ export const getPostListOptions = ({
   });
 };
 
+export const getMyPostList = async ({
+  page,
+  size,
+  sort,
+}: PaginatedMainPostListParams): Promise<PaginatedMainPostListResponse> => {
+  const mockData: PaginatedMainPostListResponse = {
+    posts: [
+      {
+        postId: 1,
+        title: "테스트 글 제목 1",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 1,
+        userName: "작성자1",
+        createdAt: "2024-01-01T00:00:00Z",
+        bookmarkCount: 10,
+        commentCount: 5,
+      },
+      {
+        postId: 2,
+        title: "테스트 글 제목 2",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 3,
+        title: "테스트 글 제목 3",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 4,
+        title: "테스트 글 제목 4",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 5,
+        title: "테스트 글 제목 5",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 6,
+        title: "테스트 글 제목 6",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 7,
+        title: "테스트 글 제목 7",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 8,
+        title: "테스트 글 제목 8",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+      {
+        postId: 9,
+        title: "테스트 글 제목 9",
+        thumbnailUrl:
+          "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270_1280.jpg",
+        userId: 2,
+        userName: "작성자2",
+        createdAt: "2024-01-02T00:00:00Z",
+        bookmarkCount: 20,
+        commentCount: 10,
+      },
+    ],
+    cursorId: 2,
+    hasNext: false,
+  };
+
+  return await instance.mock(`/post/mypage`, mockData);
+};
+
+export const getMyPostListOptions = ({
+  page,
+  size,
+  sort,
+}: PaginatedMainPostListParams) => {
+  return queryOptions({
+    queryKey: ["myPostList", page, size, sort],
+    queryFn: () => getMyPostList({ page, size, sort }),
+  });
+};
+
 export type PostDetail = {
   postId: number;
   title: string;
